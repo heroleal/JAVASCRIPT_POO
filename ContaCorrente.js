@@ -1,62 +1,20 @@
-import { Cliente } from "./Cliente.js";
 
-export class ContaCorrente {
+import { Conta } from "./Conta.js";
+
+/*pegar tudo que tem na classe conta vai trabalhar na conta corrente
+ como se o codigo estivesse aqui. Hera*/
+export class ContaCorrente extends Conta {
     static numeroDeContas = 0
-    agencia;
-    _cliente; 
-      /*privado */
-      _saldo = 0;
-
-    /*atribuir valor ao cliente*/
-    set cliente(novoValor){
-        if (novoValor instanceof Cliente){
-           this._cliente = novoValor; 
-        }
-    }
-
-    get cliente(){
-        return this._cliente;
-    }
-
-    /*acessor sempre publico*/
-    get saldo() 
-    {
-        return this._saldo;
-    }
-
-    constructor(agencia, cliente){
-
-        this.agencia = agencia;
-        this.cliente = cliente;
+    constructor(cliente, agencia){
+        super(0, cliente, agencia);   
         ContaCorrente.numeroDeContas += 1;
-
-
     }
 
+    //sobreescrevendo o comportamento de sacar
     sacar (valor){
-        if (this._saldo >= valor){
-        this._saldo -= valor;
-        return valor;
-
-        } else {
+       
+        let taxa = 1.1
+        return super._sacar(valor,taxa)
         
-            console.log("Saldo insuficiente")
-        }
     } 
-
-    depositar(valor){
-        if (valor <= 0 ) {
-
-            return;
-
-        }
-
-        this._saldo += valor
-
-        }
-
-        transferir (valor, conta){
-            const valorSacado = this.sacar(valor)
-            conta.depositar(valorSacado)
-        }
-    }
+}
