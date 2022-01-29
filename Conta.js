@@ -1,11 +1,25 @@
+/*Classe abstrata = só pode ser herdada*/
+
 
 /*serve pra gente extender ela para  e ter as propriedades, compotamentos
 que são compartilhados entre as varias outras especializações de contas que se tem */
 export class Conta {
     constructor(saldoInicial, cliente, agencia){
+
+        if (this.constructor == Conta){
+            /* o construtor que foi inicialmente chamado é ac conta
+            então ele só vai se chamado nessa ultima instâcia */
+            throw new Error("Você não deveria instaciar um objeto do tipo conta,pois é uma conta abstrata")
+            /*lançando um erro*/
+        }
+
         this._saldo = saldoInicial;
         this._cliente = cliente;
         this._agencia = agencia;
+
+        /* console.log(this.constructor)*/
+
+       
          /*propriedade sempre privadas, se precisasr abrie ela pra alguem de fora da classe usar acessor*/
     }
 
@@ -26,12 +40,9 @@ export class Conta {
     {
         return this._saldo;
     }
-
+    /*metodo abstratato */
     sacar (valor){
-       
-        let taxa = 1
-        return this._sacar(valor,taxa);
-        
+       throw new Error("O metoso sacar é abstrato")
         
     } 
 
